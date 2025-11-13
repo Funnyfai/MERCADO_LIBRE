@@ -3,6 +3,7 @@ import type { Product } from "../types/Products";
 import { createProduct, updateProduct } from "../utils/api";
 import Input from "./Input";
 import Textarea from "./Textarea";
+import Button from "./Button";
 
 interface ProductFormProps {
   product?: Product;
@@ -52,7 +53,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
       </h3>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-1">Nombre</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Nombre
+          </label>
           <Input
             type="text"
             value={formData.name}
@@ -63,7 +66,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Descripcion:</label>
+          <label className="block text-sm font-medium text-gray-700 tmb-1">
+            Descripcion:
+          </label>
           <Textarea
             value={formData.description}
             onChange={handleChange("description")}
@@ -71,7 +76,62 @@ const ProductForm: React.FC<ProductFormProps> = ({
             placeholder="Descripcion del producto"
           />
         </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Precio:
+          </label>
+          <Input
+            type="number"
+            value={formData.price}
+            onChange={handleChange("price")}
+            required
+            placeholder="00.0"
+            min="0"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium  text-gray-700 mb-1">
+            Categoría:
+          </label>
+          <Input
+            type="text"
+            value={formData.category}
+            onChange={handleChange("category")}
+            required
+            placeholder="Categoría del producto"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Url de imagen (opcional):{" "}
+          </label>
+          <Input
+            type="text"
+            value={formData.image}
+            onChange={handleChange("image")}
+            required
+            placeholder="https://"
+          />
+        </div>
+
+        <div className="flex gap-2 pt-4">
+          <Button type="submit" className="flex-1">
+            {product ? "Actualizar" : "Crear"}
+          </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            className="flex-1"
+            onClick={onCancel}
+          >
+            Cancelar
+          </Button>
+        </div>
       </form>
     </div>
   );
 };
+export default ProductForm;
