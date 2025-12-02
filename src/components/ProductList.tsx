@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import type { Product } from "../types/Products";
-import { getProducts, deleteProduct } from "../utils/api.ts";
+import { getProducts, deleteProduct } from "../utils/api";
 import ProductCard from "./ProductCard";
 import Input from "./Input";
 
@@ -12,13 +12,27 @@ const ProductList: React.FC<ProductListProps> = ({ onEdit }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   useEffect(() => {
-    setProducts(getProducts());
+    const fetchProducts = async () => {
+      try {
+        const data = await getProducts();
+        console.log(data);
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
   }, []);
 
-  const handleDelete = (id: number) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
-      deleteProduct(id);
-      setProducts(getProducts());
+  const handleDelete = async (id: number) => {
+    if (window.confirm("¿Estás seguro de que deseas eliminar este producto?")) {
+      try {
+        await deleteProduct(id);
+        const data = await getProducts();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error deleting product:", error);
+      }
     }
   };
 
