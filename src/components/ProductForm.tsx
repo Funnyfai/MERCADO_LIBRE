@@ -36,6 +36,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
       image: formData.image || undefined,
     };
     try {
+    
       if (product) {
         await updateProduct(product.id, productData);
       } else {
