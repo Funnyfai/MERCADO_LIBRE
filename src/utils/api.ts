@@ -1,6 +1,6 @@
 import type { Product } from '../types/Products';
 
-const API_BASE_URL = 'http://3.128.87.78:3000/api';
+const API_BASE_URL = 'https://imagination-pages-postcard-spokesman.trycloudflare.com/api';
 
 
 
